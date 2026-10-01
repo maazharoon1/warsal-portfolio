@@ -1963,7 +1963,76 @@ description:
   coverImages: [],
   description: "This animation shows how scalable cooling containers help industries manage refrigerated stock with ease. It uses clear diagrams to illustrate the efficiency of modular storage for different business sizes."
 },
-
+ {
+    title: "Tracking Time with Toggl Track",
+    filter: "2D Animations",
+    type: "video",
+    id: "w2dv30",
+    mainImage: "w2dv30t",
+    video: "w2dv30",
+    coverImages: [],
+    description: "This video highlights how to use the Toggl Track app to manage tasks and billable hours. It demonstrates the simple timer and organized dashboard designed to help teams stay productive."
+  },
+  {
+    title: "Professional Home Water Damage Repair",
+    filter: "2D Animations",
+    type: "video",
+    id: "w2dv31",
+    mainImage: "w2dv31t",
+    video: "w2dv31",
+    coverImages: [],
+    description: "This animated story follows a homeowner managing a household leak with the help of professional restoration experts. It shows the quick transition from a stressful home emergency to a coordinated cleanup solution."
+  },
+  {
+    title: "Running Payroll with Roll by ADP",
+    filter: "2D Animations",
+    type: "video",
+    id: "w2dv32",
+    mainImage: "w2dv32t",
+    video: "w2dv32",
+    coverImages: [],
+    description: "This animation shows how business owners can manage payroll and team changes using a simple chat interface. The video highlights the app’s clean design and text-based commands for easier staff management."
+  },
+  {
+    title: "Sail Internet Three-Step Installation Guide",
+    filter: "2D Animations",
+    type: "video",
+    id: "w2dv33",
+    mainImage: "w2dv33t",
+    video: "w2dv33",
+    coverImages: [],
+    description: "This animated video walks through the simple hardware setup for Sail Internet. It covers mounting the antenna, routing the cables, and connecting the router to get the home service running."
+  },
+  {
+    title: "Chat Integration with Sceyt",
+    filter: "2D Animations",
+    type: "video",
+    id: "w2dv34",
+    mainImage: "w2dv34t",
+    video: "w2dv34",
+    coverImages: [],
+    description: "This video demonstrates how developers can use the Sceyt API to quickly build custom chat features for mobile and web apps. It showcases simple code integration and a powerful analytics dashboard for tracking user engagement."
+  },
+  {
+    title: "Exploring Modern Digital Content Solutions",
+    filter: "2D Animations",
+    type: "video",
+    id: "w2dv35",
+    mainImage: "w2dv35t",
+    video: "w2dv35",
+    coverImages: [],
+    description: "This fast-paced montage features a mix of animated app interfaces and professional presentations focused on tech innovation. It highlights a variety of software tools and global connections using vibrant, modern graphics."
+  },
+  {
+    title: "Roadside Repair Solutions for Truckers",
+    filter: "2D Animations",
+    type: "video",
+    id: "w2dv36",
+    mainImage: "w2dv36t",
+    video: "w2dv36",
+    coverImages: [],
+    description: "This animated video shows how the TruckerBux app helps drivers find and pay for emergency roadside repairs. It highlights the app’s map interface and fast payment process to get trucks back on the road."
+  },
 
 //   video:"CGI_Ideas_V1_4x5",
 

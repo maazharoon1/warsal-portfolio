@@ -108,7 +108,7 @@ const router = useRouter()
                   quality="auto"
                   format="auto"
                   loading="lazy"
-                  className={`h-full w-full ${Project.type == "pdf" || Project.filter == "Emotes" || Project.filter == "Overlay" || Project.filter == "Banners" || Project.filter == "Menu" || Project.filter == "Merchandise" || Project.filter == "Pitch Deck" ? "object-contain " : " object-cover" }`}
+                  className={`h-full w-full ${Project.type == "pdf" || Project.filter == "Emotes" || Project.filter == "Overlay" || Project.filter == "Banners" || Project.filter == "Menu" || Project.filter == "Merchandise" || Project.filter == "Pitch Deck" ||  Project.filter == "2D Animations" ? "object-contain " : " object-cover" }`}
                 />
               </motion.div>
 
