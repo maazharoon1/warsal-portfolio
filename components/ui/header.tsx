@@ -16,7 +16,8 @@ const Header = () => {
     src="/Hero2.png"
       width={100}
       height={100}
-      priority
+      preload
+      sizes="(min-width: 768px) 140px, 110px"
       className="
         w-20
         absolute

@@ -40,10 +40,10 @@ export const portfolioCategories = [
   { id: "motiongraphics", label: "3D Animations", projectFilter: "3D Animations" },
   { id: "2danimations", label: "2D Animations", projectFilter: "2D Animations" },
   {
-    id: "uiuxdesign",
-    label: "UI/UX Design",
-    projectFilter: "UI/UX Design",
-    aliases: ["uiux"],
+    id: "webdev",
+    label: "Web Dev",
+    projectFilter: "Web Dev",
+    aliases: ["uiux", "uiuxdesign", "web-dev"],
   },
   {
     id: "emotes",

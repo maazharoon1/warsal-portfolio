@@ -5,10 +5,14 @@ import {
   useRef,
   useState,
   type WheelEvent,
+  type KeyboardEvent,
 } from "react";
-import { motion } from "motion/react";
+import { motion, MotionConfig } from "motion/react";
 import { useRouter } from "next/navigation";
 import PortofolioCard from "./ProjectCard";
+import dynamic from "next/dynamic";
+import type { PortfolioProject } from "@/libs/portfolio";
+const WebDevGrid = dynamic(() => import("./WebDevGrid"), { loading: () => <div className="min-h-[400px]" role="status">Loading website previews...</div> });
 import {
   defaultPortfolioCategory,
   getPortfolioCategoryFromHash,
@@ -23,7 +27,7 @@ function getScrollEdges(container: HTMLDivElement) {
   };
 }
 
-function Portfolio() {
+function Portfolio({ projects }: { projects: PortfolioProject[] }) {
   const router = useRouter();
   const [activeTabId, setActiveTabId] = useState<PortfolioCategoryId>(
     defaultPortfolioCategory.id
@@ -45,7 +49,7 @@ function Portfolio() {
 
       if (shouldScroll) {
         document.getElementById("portfolio")?.scrollIntoView({
-          behavior: "smooth",
+          behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
           block: "start",
         });
       }
@@ -96,7 +100,7 @@ function Portfolio() {
 
     container.scrollTo({
       left: Math.max(0, desiredLeft),
-      behavior: "smooth",
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
     });
   }, [activeTab.id]);
 
@@ -108,6 +112,17 @@ function Portfolio() {
     }
 
     router.push(`#${categoryId}`);
+  }
+
+  function handleTabKeyDown(event: KeyboardEvent<HTMLButtonElement>, index: number) {
+    const nextIndex = event.key === "ArrowRight" ? (index + 1) % portfolioCategories.length
+      : event.key === "ArrowLeft" ? (index - 1 + portfolioCategories.length) % portfolioCategories.length
+      : event.key === "Home" ? 0 : event.key === "End" ? portfolioCategories.length - 1 : null;
+    if (nextIndex === null) return;
+    event.preventDefault();
+    const category = portfolioCategories[nextIndex];
+    handleTabClick(category.id);
+    tabRefs.current[category.id]?.focus();
   }
 
   function handleTabWheel(event: WheelEvent<HTMLDivElement>) {
@@ -136,6 +151,7 @@ function Portfolio() {
   }
 
   return (
+    <MotionConfig reducedMotion="user">
     <section className="relative w-full overflow-hidden">
   
 
@@ -182,18 +198,18 @@ function Portfolio() {
             viewport={{ once: true }}
             transition={{ delay: 0.2, duration: 0.6 }}
           >
-            Selected graphic design work
+            Selected design & development projects
           </motion.h2>
 
           <motion.p
-            className="max-w-2xl text-sm leading-relaxed text-gray-400 sm:text-[15px]"
+            className="max-w-2xl text-sm leading-relaxed text-gray-600 sm:text-[15px]"
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3, duration: 0.6 }}
           >
             Explore selected branding, logo, packaging, 3D Animations,
-            social media, and UI/UX projects by Warsal.
+            social media, and web development projects by Warsal.
           </motion.p>
         </motion.div>
 
@@ -234,7 +250,7 @@ function Portfolio() {
     "
   >
     <div className="flex min-w-max gap-2 px-1 sm:w-full sm:min-w-0 sm:flex-wrap sm:justify-center">
-      {portfolioCategories.map((tab) => {
+      {portfolioCategories.map((tab, index) => {
         const isActive = tab.id === activeTab.id;
 
         return (
@@ -247,6 +263,8 @@ function Portfolio() {
             type="button"
             role="tab"
             aria-selected={isActive}
+            tabIndex={isActive ? 0 : -1}
+            onKeyDown={(event) => handleTabKeyDown(event, index)}
             aria-controls={`panel-${tab.id}`}
             onClick={() => handleTabClick(tab.id)}
             className={`
@@ -400,12 +418,13 @@ function Portfolio() {
                 duration: 0.35,
               }}
             >
-              <PortofolioCard activeFilter={activeTab.projectFilter} />
+              {activeTab.id === "webdev" ? <WebDevGrid projects={projects.filter((project) => project.filter === "Web Dev")} /> : <PortofolioCard projects={projects} activeFilter={activeTab.projectFilter} />}
             </motion.div>
         </motion.div>
 
       </div>
     </section>
+    </MotionConfig>
   );
 }
 

@@ -1,0 +1,70 @@
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 20px;
+  padding-block: 8px;
+}
+.entry { min-width: 0; }
+.card {
+  display: block;
+  position: relative;
+  min-width: 0;
+  width: 100%;
+  text-decoration: none;
+  transition: transform 350ms ease;
+}
+.window {
+  display: block;
+  position: relative;
+  isolation: isolate;
+  height: clamp(280px, 100vw, 400px);
+  overflow: hidden;
+  border: 1px solid #dedede;
+  border-radius: 6px;
+  background: #10191b;
+  transition: border-color 200ms ease;
+}
+.cover {
+  display: block;
+  width: 100%;
+  height: auto;
+  transform: translateY(0);
+  transition: transform 7s ease-in-out;
+}
+.placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 28px;
+  background: linear-gradient(145deg, #10191b, #163536);
+  color: #fff;
+}
+.number { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #7cdedb; }
+.title { font-size: clamp(24px, 3vw, 34px); line-height: 1.15; overflow-wrap: anywhere; }
+.visit { display: flex; align-items: center; justify-content: space-between; font-size: 12px; color: #a4dedc; }
+.card:focus-visible { outline: 2px solid #008d8c; outline-offset: 4px; border-radius: 6px; }
+.card:focus-visible .window { border-color: #01d2d1; }
+.card:focus-visible .cover { transform: translateY(var(--preview-offset, 0px)); }
+@media (min-width: 640px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+  .entry:nth-child(2n) { --reveal-delay: 95ms; }
+}
+@media (min-width: 1280px) {
+  .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .entry:nth-child(n) { --reveal-delay: 0ms; }
+  .entry:nth-child(4n + 2) { --reveal-delay: 95ms; }
+  .entry:nth-child(4n + 3) { --reveal-delay: 190ms; }
+  .entry:nth-child(4n) { --reveal-delay: 285ms; }
+}
+@media (hover: hover) and (pointer: fine) {
+  .card:hover { transform: scale(1.035); z-index: 1; }
+  .card:hover .window { border-color: #01d2d1; }
+  .card:hover .cover { transform: translateY(var(--preview-offset, 0px)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .card, .window, .cover { transition: none; }
+  .card:hover, .card:hover .cover, .card:focus-visible .cover { transform: none; }
+}

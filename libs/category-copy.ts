@@ -1,0 +1,18 @@
+export const categoryDescriptions: Record<string, string> = {
+  logodesign: "Explore Warsal's logo designs, from wordmarks and emblems to visual identities for businesses and brands.",
+  editorials: "Browse editorial design projects by Warsal, featuring page layouts, typography, and visual storytelling.",
+  stationery: "Explore branded stationery by Warsal, including business cards, letterheads, and coordinated print materials.",
+  socialmediapost: "Browse Warsal's social media design portfolio, with visual content created for brand communication and digital campaigns.",
+  banners: "Explore banner designs by Warsal for digital spaces, campaigns, and branded visual communication.",
+  menu: "Browse Warsal's menu design projects, combining clear layouts, typography, and food-focused visual presentation.",
+  merchandise: "Explore Warsal's merchandise designs and branded artwork for products, apparel, and promotional materials.",
+  packaging: "Browse Warsal's packaging design portfolio, featuring labels, product presentation, and brand-focused visual identities.",
+  flyernbrochures: "Explore flyers and brochures by Warsal, with layouts that bring together brand messaging, imagery, and print design.",
+  brandguidlines: "Browse Warsal's brand guidelines projects, documenting visual identities, typography, colors, and consistent brand application.",
+  pitchdeck: "Explore pitch deck and presentation designs by Warsal, bringing clear structure and visual storytelling to business ideas.",
+  motiongraphics: "Watch Warsal's 3D animation projects, featuring animated products, characters, and visual stories.",
+  "2danimations": "Watch Warsal's 2D animation portfolio, including illustrated stories, explainers, and motion design projects.",
+  webdev: "Explore websites developed by Warsal. Preview full-page designs and visit live projects across a range of businesses and creative portfolios.",
+  emotes: "Browse Warsal's emote designs, featuring expressive illustrations and character artwork for online communities.",
+  overlay: "Explore Warsal's overlay design portfolio, with visual layouts and graphics for streaming and digital content.",
+};

@@ -1,235 +1,81 @@
-import Background from "@/components/ui/background";
-import PortfolioVideo from "@/components/ui/VideoPlayer";
-import { ProjectObject } from "@/libs/projectVariable";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
+import Background from "@/components/ui/background";
+import PortfolioVideo from "@/components/ui/VideoPlayer";
+import { Footer } from "@/components/ui/Footer";
+import { ProjectObject } from "@/libs/projectVariable";
+import { portfolioCategories } from "@/components/section/portfolioCategories";
+import { absoluteUrl, jsonLd, shortDescription } from "@/libs/site";
+import { posterUrl, videoUrl } from "@/libs/media";
 
-const baseUrl = "https://www.warsal-portfolio.com";
-
-interface PageProps {
-  params: Promise<{
-    slug: string;
-  }>;
-}
+interface PageProps { params: Promise<{ slug: string }> }
+const findVideo = (slug: string) => ProjectObject.find((project) => project.type === "video" && project.id.toLowerCase() === slug.toLowerCase());
 
 export function generateStaticParams() {
-  return ProjectObject.filter((project) => project.type === "video").map(
-    (project) => ({ slug: project.id })
-  );
+  return ProjectObject.filter((project) => project.type === "video").map((project) => ({ slug: project.id }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const project = ProjectObject.find(
-    (item) => item.id.toLowerCase() === slug.toLowerCase() && item.type === "video"
-  );
-
-  if (!project) {
-    return { title: "Video Not Found" };
-  }
-
+  const project = findVideo(slug);
+  if (!project) return { title: "Video not found", robots: { index: false, follow: false } };
+  const title = project.title.trim();
+  const description = shortDescription(project.description);
+  const path = "/video/" + project.id;
+  const image = posterUrl(project.mainImage);
   return {
-    title: project.title.trim(),
-    description: project.description?.trim() ?? "",
-    alternates: { canonical: `/video/${project.id}` },
-    openGraph: {
-      title: project.title.trim(),
-      description: project.description?.trim() ?? "",
-      url: `${baseUrl}/video/${project.id}`,
-      type: "video.other",
-      images: [{ url: "/Hero2.png", alt: `${project.title.trim()} project preview` }],
-    },
+    title, description, alternates: { canonical: path },
+    openGraph: { title: title + " | Warsal", description, url: absoluteUrl(path), type: "video.other", siteName: "Warsal Portfolio", images: [{ url: image, width: 1200, height: 630, alt: title + " animation preview" }] },
+    twitter: { card: "summary_large_image", title: title + " | Warsal", description, images: [image] },
   };
 }
 
-const Video = async ({ params }: PageProps) => {
+export default async function Video({ params }: PageProps) {
   const { slug } = await params;
-
-  const project = ProjectObject.find(
-    (item) => item.id.toLowerCase() === slug.toLowerCase() && item.type === "video"
-  );
-
-  if (!project) {
-    notFound();
-  }
-
+  const project = findVideo(slug);
+  if (!project) notFound();
+  if (slug !== project.id) permanentRedirect("/video/" + project.id);
+  const category = portfolioCategories.find((item) => item.projectFilter === project.filter);
+  const categoryPath = category ? "/work/" + category.id : "/";
+  const mediaId = project.video || project.id;
+  const title = project.title.trim();
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CreativeWork", "@id": absoluteUrl("/video/" + project.id),
+        name: title, description: project.description?.trim(), url: absoluteUrl("/video/" + project.id),
+        image: posterUrl(project.mainImage), creator: { "@type": "Person", name: "Warsal", url: absoluteUrl("/") },
+      },
+      { "@type": "BreadcrumbList", itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Portfolio", item: absoluteUrl("/") },
+        { "@type": "ListItem", position: 2, name: category?.label || "Work", item: absoluteUrl(categoryPath) },
+        { "@type": "ListItem", position: 3, name: title, item: absoluteUrl("/video/" + project.id) },
+      ] },
+    ],
+  };
   return (
-    <>
+    <div className="relative min-h-screen bg-white">
       <Background />
-
-      {/* Local, scoped keyframes — no config or global CSS changes needed */}
-      <style>{`
-        @keyframes fadeSlideUp {
-          from { opacity: 0; transform: translateY(18px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        .animate-container { animation: fadeSlideUp 0.7s cubic-bezier(0.16, 0.8, 0.3, 1) both; }
-        .animate-video { animation: fadeIn 0.9s ease-out 0.15s both; }
-        .animate-info { animation: fadeSlideUp 0.7s cubic-bezier(0.16, 0.8, 0.3, 1) 0.3s both; }
-      `}</style>
-
-      <div className="relative min-h-screen overflow-x-hidden">
-        <Link
-          href="/"
-          className="
-            group
-            fixed
-            left-4
-            top-4
-            z-50
-            inline-flex
-            items-center
-            gap-1.5
-            rounded-full
-            border
-            border-white/10
-            bg-white/40
-            px-4
-            py-2.5
-            text-xs
-            sm:text-sm
-            text-black/90
-            backdrop-blur-xl
-            shadow-lg
-            shadow-black/20
-            transition-all
-            duration-300
-            hover:bg-white/10
-            hover:border-white/20
-            hover:-translate-y-0.5
-            active:scale-95
-            sm:left-6
-            sm:top-6
-          "
-        >
-          <span className="transition-transform duration-300 group-hover:-translate-x-0.5">
-            ←
-          </span>
-          Back
-        </Link>
-
-        <div
-          className="
-            animate-container
-            relative
-            z-10
-            mx-auto
-            w-[92%]
-            sm:w-[90%]
-            md:w-[92%]
-            max-w-350
-            px-4
-            py-20
-            sm:px-6
-            sm:py-24
-            md:py-28
-          "
-        >
-          <div
-            className="
-              flex
-              flex-col
-              md:flex-row
-              gap-6
-              md:gap-8
-              rounded-2xl
-              md:rounded-3xl
-              border
-              border-white/10
-              bg-white/30
-              backdrop-blur-2xl
-              shadow-2xl
-              shadow-black/40
-              p-4
-              sm:p-6
-              md:p-8
-            "
-          >
-            {/* Video */}
-            <div className="animate-video w-full  
-                   aspect-video
-                   md:flex-2">
-
-              <div
-                className="
-                  relative
-                  w-full
-                  aspect-video
-                  overflow-hidden
-                  rounded-xl
-                  md:rounded-2xl
-                  border
-                  border-white/10
-                  bg-white/60
-                  shadow-lg
-                  shadow-black/30
-                "
-              >
-                <PortfolioVideo
-                  id={project.video ? project.video : project.id}
-                  mainImage={project.mainImage}
-                />
-              </div>
-            </div>
-
-            {/* Info */}
-            <div
-              className="
-                animate-info
-                w-full
-                md:flex-1
-                flex
-                flex-col
-                justify-center
-                gap-3
-                px-1
-                py-2
-                md:py-0
-              "
-            >
-              <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] text-black/40">
-                Project
-              </span>
-              <h1
-                className="
-                  font-semibold
-                  text-black
-                  leading-[1.1]
-                  tracking-tight
-                  text-2xl
-                  sm:text-3xl
-                  md:text-4xl
-                  lg:text-[2.75rem]
-                "
-              >
-                {project.title}
-              </h1>
-              <div className="mt-2 h-px w-12 text-black" />
-              <span className="text-background"> {project.description}
-</span>
-                  <div className="mt-3 text-sm text-black/50">
-                  If the video isn&apos;t playing,{" "} 
-  <Link
-    href={`https://res.cloudinary.com/hcn0f9nu/video/upload/v1786745203/${project.video}.mp4`}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="text-[#01d2d1] block sm:inline underline underline-offset-4 hover:text-[#01d2d1]"
-  >
-    click here to watch it
-  </Link>
- </div>
-            </div>
-            <div></div>
+      <main id="main-content" tabIndex={-1} className="relative z-10 mx-auto max-w-350 px-4 py-10 sm:px-6 lg:px-8">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(structuredData) }} />
+        <nav aria-label="Breadcrumb" className="mb-8 flex flex-wrap items-center gap-2 text-sm text-gray-600">
+          <Link href="/" className="hover:underline">Warsal</Link><span aria-hidden="true">/</span>
+          <Link href={categoryPath} className="hover:underline">{category?.label || "Projects"}</Link><span aria-hidden="true">/</span>
+          <span aria-current="page">{title}</span>
+        </nav>
+        <article className="grid items-start gap-7 rounded-2xl border border-gray-200 bg-white/60 p-4 shadow-lg sm:p-6 lg:grid-cols-[minmax(0,2fr)_minmax(260px,1fr)] lg:gap-10 lg:p-8">
+          <PortfolioVideo key={mediaId} id={mediaId} mainImage={project.mainImage} title={title} />
+          <div className="flex flex-col gap-5">
+            <p className="text-xs uppercase tracking-widest text-[#007a79]">{project.filter}</p>
+            <h1 className="text-3xl font-semibold leading-tight tracking-tight text-gray-900 sm:text-4xl">{title}</h1>
+            <p className="text-base leading-relaxed text-gray-600">{project.description}</p>
+            <a href={videoUrl(mediaId)} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center text-sm text-[#007a79] underline underline-offset-4">Open video directly &#8599;</a>
           </div>
-        </div>
-      </div>
-    </>
+        </article>
+      </main>
+      <div className="relative z-10"><Footer /></div>
+    </div>
   );
-};
-
-export default Video;
+}

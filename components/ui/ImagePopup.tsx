@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import ImageZoom from "./zoomIn";
 import CloudinaryPDFViewer from "./CloudinaryPdfViewer";
-import PortfolioVideo from "./VideoPlayer";
+
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -15,7 +15,7 @@ interface ImagePopupProps {
   onClose?: () => void;
 }
 
-const ImagePopup = ({ id, onClose }: ImagePopupProps) => {
+const ImagePopupContent = ({ id, onClose }: ImagePopupProps) => {
   const router = useRouter()
   const project = sortProject(id);
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -36,10 +36,7 @@ const ImagePopup = ({ id, onClose }: ImagePopupProps) => {
     ? [project.mainImage, ...(project.coverImages || [])]
     : [];
 
-  // Reset active image when another project opens
-  useEffect(() => {
-    setActiveImage(0);
-  }, [id]);
+
 
   // ESC + body scroll lock + focus management
   useEffect(() => {
@@ -90,7 +87,7 @@ const ImagePopup = ({ id, onClose }: ImagePopupProps) => {
       document.body.style.overflow = previousOverflow;
       document.body.style.paddingRight = previousPadding;
     };
-  }, [project, onClose, images.length]);
+  }, [project, onClose, images.length, router]);
 
   if (!project) return null;
 
@@ -656,7 +653,7 @@ const ImagePopup = ({ id, onClose }: ImagePopupProps) => {
           {/* Details */}
          {project.type && project.type == "video" ?    
             <div className="mt-3  text-sm text-black/50">
-  If the video isn't playing,{" "} 
+  If the video isn&apos;t playing,{" "} 
   <div>
   <Link
     href={`https://res.cloudinary.com/hcn0f9nu/video/upload/v1786745203/${project.video}.mp4`}
@@ -697,4 +694,4 @@ const ImagePopup = ({ id, onClose }: ImagePopupProps) => {
   );
 };
 
-export default ImagePopup;
+export default function ImagePopup(props: ImagePopupProps) { return <ImagePopupContent key={props.id} {...props} />; }

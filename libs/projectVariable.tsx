@@ -1,3 +1,6 @@
+// Increment after replacing Web Dev images to refresh cached preview URLs.
+export const WEB_DEV_IMAGE_REVISION = 2;
+
 // import { color } from "motion";
 
 export const ProjectObject = [
@@ -1524,139 +1527,127 @@ description:
 },
 
 
-// UIUX 
-
+// Web Dev - upload IDs are documented in WEB_DEV_IMAGES.md
 {
-  filter: "UI/UX Design",
-  title: "  Cascading Web Interface",
-
-  type:"image",
-  id: "U01",
-
-  description:
-    "Landing page design in modern style represented by the use of a new 3D cascade technique. The extended page smoothly emerges from the laptop display, emphasizing the clean grid, professional fonts, and organized layout on the background of neutral studio setting.",
-
-  mainImage: "U01",
+  "filter": "Web Dev",
+  "id": "warsal-web-01",
+  "title": "Morgan Tattoo Studio",
+  "type": "image",
+  "description": "Website project: Morgan Tattoo Studio.",
+  "mainImage": "wwb-1",
+  "liveUrl": "https://morgan-tattoo-studio.vercel.app/",
+  "coverImages": []
 },
 {
-  filter: "UI/UX Design",
-  title: " Minimalist Web Interface",
-
-  type:"image",
-  id: "U02",
-
-  description:
-    "The contemporary web interface presented using a surrealistic, cascading 3D mock-up on an extremely minimalist platform. The concept of the design is focused on the idea of structured typography and layout that is elegantly unfurling from the screen.",
-
-  mainImage: "U02",
+  "filter": "Web Dev",
+  "id": "warsal-web-02",
+  "title": "All Links",
+  "type": "image",
+  "description": "Website project: All Links.",
+  "mainImage": "wwb-2",
+  "liveUrl": "https://all-links-kappa.vercel.app/",
+  "coverImages": []
+},
+{
+  "filter": "Web Dev",
+  "id": "warsal-web-03",
+  "title": "Mojju",
+  "type": "image",
+  "description": "Website project: Mojju.",
+  "mainImage": "wwb-3",
+  "liveUrl": "https://mojju-three.vercel.app/",
+  "coverImages": []
+},
+{
+  "filter": "Web Dev",
+  "id": "warsal-web-04",
+  "title": "Custom Craftsmanship Construction",
+  "type": "image",
+  "description": "Website project: Custom Craftsmanship Construction.",
+  "mainImage": "wwb-4",
+  "liveUrl": "https://custom-craftsmanship-construction-a.vercel.app",
+  "coverImages": []
+},
+{
+  "filter": "Web Dev",
+  "id": "warsal-web-05",
+  "title": "Estate",
+  "type": "image",
+  "description": "Website project: Estate.",
+  "mainImage": "wwb-5",
+  "liveUrl": "https://estate-indol-iota.vercel.app/",
+  "coverImages": []
+},
+{
+  "filter": "Web Dev",
+  "id": "warsal-web-06",
+  "title": "Top Teir Revolutions",
+  "type": "image",
+  "description": "Website project: Top Teir Revolutions.",
+  "mainImage": "wwb-6",
+  "liveUrl": "https://top-teir-revolutions.vercel.app/",
+  "coverImages": []
+},
+{
+  "filter": "Web Dev",
+  "id": "warsal-web-07",
+  "title": "Indira Organics",
+  "type": "image",
+  "description": "Website project: Indira Organics.",
+  "mainImage": "wwb-7",
+  "liveUrl": "https://www.indiraorganics.com.au/",
+  "coverImages": []
+},
+{
+  "filter": "Web Dev",
+  "id": "warsal-web-08",
+  "title": "Florence Mytum",
+  "type": "image",
+  "description": "Website project: Florence Mytum.",
+  "mainImage": "wwb-8",
+  "liveUrl": "https://www.florencemytum.com/",
+  "coverImages": []
+},
+{
+  "filter": "Web Dev",
+  "id": "warsal-web-09",
+  "title": "Moutique",
+  "type": "image",
+  "description": "Website project: Moutique.",
+  "mainImage": "wwb-9",
+  "liveUrl": "https://moutique.co.nz/",
+  "coverImages": []
 },
 
 {
-  filter: "UI/UX Design",
-  title: "Modern Web Interface ",
-
-  type:"image",
-  id: "U04",
-
-  description:
-    "Clean and professional-looking digital interface presented via a surreal 3D mock-up. The web page smoothly slides out from the laptop screen on an uncluttered gray background with the focus on contemporary fonts and clearly defined content blocks in an airy studio space.",
-
-  mainImage: "U04",
+  "filter": "Web Dev",
+  "id": "warsal-web-11",
+  "title": "Ambassador on Ruthven",
+  "type": "image",
+  "description": "Website project: Ambassador on Ruthven.",
+  "mainImage": "wwb-11",
+  "liveUrl": "https://www.ambassadoronruthven.com.au/",
+  "coverImages": []
 },
 {
-  filter: "UI/UX Design",
-  title: " Fluid Digital Interface",
-
-  type:"image",
-  id: "U05",
-
-  description:
-    "An incredible 3D display with a website interface that is designed in such a way that it flows down like a bendable scroll. The design features a neat grid interface with text and pictures, with soft lighting and minimalist design elements.",
-
-  mainImage: "U05",
+  "filter": "Web Dev",
+  "id": "warsal-web-12",
+  "title": "Criste Tarillera",
+  "type": "image",
+  "description": "Website project: Criste Tarillera.",
+  "mainImage": "wwb-12",
+  "liveUrl": "https://www.cristetarillera.com/",
+  "coverImages": []
 },
 {
-  filter: "UI/UX Design",
-  title: " Surreal Studio Portfolio Display",
-
-  type:"image",
-  id: "U06",
-
-  description:
-    "Concept design of a sleek web design illustrated in a minimalistic studio setting. The black laptop displays a lengthy and curvy page flowing on top of a white block formation, depicting the use of structured images and text in the UI design.",
-
-  mainImage: "U06",
-},
-{
-  filter: "UI/UX Design",
-  title: " Modern UI/UX",
-
-  type:"image",
-  id: "U07",
-
-  description:
-    "This design project presents a modern user interface on the website presented using a surreal 3D mock-up. The site layout flows down seamlessly from the laptop screen onto the harsh and concrete brutalist structure, demonstrating the organized grid system, fonts, and content sections.",
-
-  mainImage: "U07",
-},
-{
-  filter: "UI/UX Design",
-  title: " Minimalist Web Interface",
-
-  type:"image",
-  id: "U08",
-
-  description:
-    "Modern and sleek web interface design in the form of a ribbon, which emanates from the laptop screen. The interface design has a clean look and structured segments with quality images that cascade down on the concrete floor to show the responsiveness of the UI.",
-
-  mainImage: "U08",
-},
-{
-  filter: "UI/UX Design",
-  title: " Pet Care ",
-
-  type:"image",
-  id: "U09",
-
-  description:
-    "Pet care website design with a neat and professional layout containing images and structured blocks of information about dogs. The design is showcased through a vertical scroll coming out of a laptop in one piece.",
-
-  mainImage: "U09",
-},
-{
-  filter: "UI/UX Design",
-  title: "Artisan Bakery ",
-
-  type:"image",
-  id: "U10",
-
-  description:
-    "This collection of creativity includes a visually appealing landing page for a bakery that is centered on food. This design unfolds from the laptop screen and showcases great product photos along with beautiful serif fonts in a minimalistic 3D space.",
-
-  mainImage: "U10",
-},
-{
-  filter: "UI/UX Design",
-  title: " Ocean Conservation ",
-
-  type:"image",
-  id: "U11",
-
-  description:
-    "Modern landing page design dedicated to marine life conservation in the form of one continuous scroll. The interface incorporates blue color scheme, data visualization, and environmental elements that are all shown via a surrealistic 3D rendering mounted on a white pedestal.",
-
-  mainImage: "U11",
-},
-{
-  filter: "UI/UX Design",
-  title: " E-commerce ",
-
-  type:"image",
-  id: "U12",
-
-  description:
-    "In this 3D rendering, there is a lively e-commerce website that is literally streaming out of a computer screen in waves. The focus of the design here is on the strong use of colors and clean typography in a surrealist minimalist environment.",
-  mainImage: "U12",
+  "filter": "Web Dev",
+  "id": "wwb-13",
+  "title": "Mikron Manufacturing",
+  "type": "image",
+  "description": "Website project: Mikron Manufacturing.",
+  "mainImage": "wwb-13",
+  "liveUrl": "https://www.mikronmfg.com/",
+  "coverImages": []
 },
 // 3D Animations
 {
@@ -3506,3 +3497,4 @@ description:
 },
 
 ];
+// todo : check ui astra change ui when I say him to optimize the code and make it more readable and organized.

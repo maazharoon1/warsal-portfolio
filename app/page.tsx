@@ -1,53 +1,28 @@
+import type { Metadata } from "next";
 import Hero from "@/components/section/hero";
 import Portfolio from "@/components/section/portfolio";
 import Background from "@/components/ui/background";
 import { Footer } from "@/components/ui/Footer";
 import Seperator from "@/components/ui/Seperator";
-import { ProjectObject } from "@/libs/projectVariable";
+import { getPortfolioProjects } from "@/libs/portfolio-data";
+import { absoluteUrl, jsonLd, siteTitle, siteDescription } from "@/libs/site";
+
+export const metadata: Metadata = { alternates: { canonical: "/" }, openGraph: { title: siteTitle, description: siteDescription, url: "/", type: "website", siteName: "Warsal Portfolio", images: [{ url: "/share-image", width: 1200, height: 630 }] } };
 
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Person",
-      "@id": "https://www.warsal-portfolio.com/#person",
-      name: "Warsal",
-      url: "https://www.warsal-portfolio.com/",
-      knowsAbout: [
-        "Brand identity",
-        "Logo design",
-        "Packaging design",
-        "3D Animations",
-        "2D Animations",
-        "UI/UX design",
-        "Emotes",
-        "OverLay"
-      ],
+      "@type": "Person", "@id": absoluteUrl("/#person"), name: "Warsal", url: absoluteUrl(),
+      knowsAbout: ["Graphic design", "Brand identity", "Logo design", "Packaging design", "Web development", "2D animation", "3D animation"],
     },
     {
-      "@type": "WebSite",
-      "@id": "https://www.warsal-portfolio.com/#website",
-      url: "https://www.warsal-portfolio.com/",
-      name: "Warsal Graphic Design Portfolio",
-      publisher: { "@id": "https://www.warsal-portfolio.com/#person" },
+      "@type": "WebSite", "@id": absoluteUrl("/#website"), name: "Warsal Portfolio", url: absoluteUrl(),
+      publisher: { "@id": absoluteUrl("/#person") },
     },
     {
-      "@type": "WebPage",
-      "@id": "https://www.warsal-portfolio.com/#webpage",
-      url: "https://www.warsal-portfolio.com/",
-      name: "Warsal Graphic Design Portfolio",
-      isPartOf: { "@id": "https://www.warsal-portfolio.com/#website" },
-      about: { "@id": "https://www.warsal-portfolio.com/#person" },
-      mainEntity: {
-        "@type": "ItemList",
-        numberOfItems: ProjectObject.length,
-        itemListElement: ProjectObject.map((project, index) => ({
-          "@type": "ListItem",
-          position: index + 1,
-          name: project.title.trim(),
-          description: project.description?.trim() ?? "",
-        })),
-      },
+      "@type": "CollectionPage", "@id": absoluteUrl("/#webpage"), name: siteTitle, description: siteDescription,
+      url: absoluteUrl(), isPartOf: { "@id": absoluteUrl("/#website") }, about: { "@id": absoluteUrl("/#person") },
     },
   ],
 };
@@ -55,25 +30,15 @@ const structuredData = {
 export default function Home() {
   return (
     <div className="relative z-0 min-h-screen overflow-x-hidden bg-white">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(structuredData) }} />
       <Background />
-
-      <div className="relative z-10 ">
-        <section id="home" className="mb-20 md:mb-10">
-          <Hero />
-        </section>
-
-        <Seperator className="mb-10 md:-mt-20 " />
-
-        <section id="portfolio">
-          <Portfolio />
-        </section>
-
-        <Seperator className="mt-15" />
-
+      <div className="relative z-10">
+        <main id="main-content" tabIndex={-1}>
+          <section id="home" className="mb-20 md:mb-10"><Hero /></section>
+          <Seperator className="mb-10 md:-mt-20" />
+          <section id="portfolio" className="scroll-mt-6"><Portfolio projects={getPortfolioProjects()} /></section>
+          <Seperator className="mt-15" />
+        </main>
         <Footer />
       </div>
     </div>
